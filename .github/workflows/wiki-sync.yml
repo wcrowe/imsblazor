@@ -1,0 +1,29 @@
+name: 📄 Sync Wiki
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - docs/IIS-Deployment-Guide.md
+
+jobs:
+  sync-wiki:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: 📝 Clone Wiki
+        run: |
+          git clone https://github.com/${{ github.repository }}.wiki.git wiki
+
+      - name: 🔁 Copy Deployment Guide
+        run: |
+          cp docs/IIS-Deployment-Guide.md wiki/
+          cd wiki
+          git config user.name "GitHub Actions"
+          git config user.email "ci@github.com"
+          git add IIS-Deployment-Guide.md
+          git commit -m "🔄 Sync deployment guide to wiki"
+          git push
