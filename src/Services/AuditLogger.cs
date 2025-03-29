@@ -1,4 +1,4 @@
-
+namespace imsblazor.Services;
 using System.Data;
 using Dapper;
 

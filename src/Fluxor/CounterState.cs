@@ -1,5 +1,7 @@
-
 using Fluxor;
+
+namespace imsblazor.Fluxor;
+
 
 public record CounterState(int ClickCount);
 

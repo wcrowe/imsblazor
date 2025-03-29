@@ -1,4 +1,4 @@
-
+namespace imsblazor.Fluxor;
 public class AuditLogExportDto
 {
     public DateTime TimeStamp { get; set; }

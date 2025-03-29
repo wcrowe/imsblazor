@@ -1,4 +1,7 @@
+using Dapper;
+using System.Data;
 
+namespace imsblazor.Services;
 public class LogArchiveService : BackgroundService
 {
     private readonly ILogger<LogArchiveService> _logger;

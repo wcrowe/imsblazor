@@ -1,4 +1,4 @@
-
+namespace imsblazor.Fluxor;
 public class LogSummaryExportDto
 {
     public string UserId { get; set; }

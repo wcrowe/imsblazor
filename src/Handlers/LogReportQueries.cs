@@ -2,7 +2,10 @@
 using MediatR;
 using System.Data;
 using Dapper;
-
+using imsblazor.Services;
+using imsblazor.Fluxor;
+using System.Text;
+namespace imsblazor.Handlers;
 public record GenerateWeeklyReportQuery : IRequest<byte[]>;
 public class GenerateWeeklyReportHandler : IRequestHandler<GenerateWeeklyReportQuery, byte[]>
 {
