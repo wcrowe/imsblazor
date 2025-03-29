@@ -1,10 +1,10 @@
-@rendermode InteractiveServer
-<p><strong>Interactive Server counter:</strong></p>
 
-<p>Current count: @count</p>
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+@rendermode InteractiveServer
+<p>This is an Interactive Server-rendered counter:</p>
+<p>Count: @count</p>
+<button class="btn btn-primary" @onclick="Increment">Click me</button>
 
 @code {
     private int count = 0;
-    private void IncrementCount() => count++;
+    private void Increment() => count++;
 }

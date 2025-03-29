@@ -1,0 +1,10 @@
+
+@rendermode InteractiveWebAssembly
+<p>This is an Interactive WebAssembly-rendered counter:</p>
+<p>Count: @count</p>
+<button class="btn btn-success" @onclick="Increment">Click me</button>
+
+@code {
+    private int count = 0;
+    private void Increment() => count++;
+}

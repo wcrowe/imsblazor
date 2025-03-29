@@ -1,16 +1,19 @@
+
 @page "/rendermodes-demo"
-@attribute [RenderModeServer]
 
-<h3>🌀 Render Modes Demo</h3>
-
-<p><strong>Windows User:</strong> @context?.User?.Identity?.Name</p>
-
-<div class="alert alert-info">This page is rendered with <code>@attribute [RenderModeServer]</code></div>
+<h3>🌐 Render Modes Demonstration</h3>
+<p>This page shows how different Blazor render modes behave.</p>
 
 <hr />
-<h4>Static Counter</h4>
+<h4>Static Render (SSR only, no interactivity)</h4>
 <CounterStatic />
 
 <hr />
-<h4>Interactive Server Counter</h4>
+<h4>Interactive Server Render (Blazor Server)</h4>
 <CounterInteractiveServer />
+
+<hr />
+<h4>Interactive WebAssembly Render (Client-side)</h4>
+<CounterInteractiveWasm />
+
+<p class="text-muted">Note: WebAssembly interactivity requires proper WASM bootstrapping.</p>
