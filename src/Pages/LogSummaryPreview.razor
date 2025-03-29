@@ -1,0 +1,39 @@
+@page "/log-summary-preview"
+@inject IDbConnection Db
+
+<h3>📊 Weekly Log Summary</h3>
+
+@if (Summaries is null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table class="table table-sm">
+        <thead>
+            <tr><th>User</th><th>Date</th><th>Logs</th><th>Errors</th><th>Audits</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Summaries)
+            {
+                <tr>
+                    <td>@item.UserId</td>
+                    <td>@item.LogDate.ToShortDateString()</td>
+                    <td>@item.TotalLogs</td>
+                    <td>@item.ErrorCount</td>
+                    <td>@item.AuditCount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<LogSummaryExportDto>? Summaries;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Summaries = (await Db.QueryAsync<LogSummaryExportDto>(
+            "sp_GetWeeklyLogSummary", commandType: CommandType.StoredProcedure)).ToList();
+    }
+}

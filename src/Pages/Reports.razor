@@ -1,0 +1,27 @@
+
+@page "/reports"
+@inject IMediator Mediator
+@inject IJSRuntime JS
+
+<h3>📊 Log Reports</h3>
+
+<button class="btn btn-primary me-2" @onclick="DownloadPdf">📄 Weekly Summary (PDF)</button>
+<button class="btn btn-success" @onclick="DownloadCsv">📊 Audit Log (CSV)</button>
+
+@code {
+    private async Task DownloadPdf()
+    {
+        var pdf = await Mediator.Send(new GenerateWeeklyReportQuery());
+        var filename = $"weekly-log-summary-{DateTime.Now:yyyyMMdd}.pdf";
+        using var streamRef = new DotNetStreamReference(new MemoryStream(pdf));
+        await JS.InvokeVoidAsync("downloadFileFromStream", filename, streamRef);
+    }
+
+    private async Task DownloadCsv()
+    {
+        var csv = await Mediator.Send(new ExportAuditLogQuery());
+        var filename = $"audit-log-{DateTime.Now:yyyyMMdd}.csv";
+        using var streamRef = new DotNetStreamReference(new MemoryStream(csv));
+        await JS.InvokeVoidAsync("downloadFileFromStream", filename, streamRef);
+    }
+}

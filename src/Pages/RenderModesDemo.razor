@@ -1,0 +1,16 @@
+@page "/rendermodes-demo"
+@attribute [RenderModeServer]
+
+<h3>🌀 Render Modes Demo</h3>
+
+<p><strong>Windows User:</strong> @context?.User?.Identity?.Name</p>
+
+<div class="alert alert-info">This page is rendered with <code>@attribute [RenderModeServer]</code></div>
+
+<hr />
+<h4>Static Counter</h4>
+<CounterStatic />
+
+<hr />
+<h4>Interactive Server Counter</h4>
+<CounterInteractiveServer />

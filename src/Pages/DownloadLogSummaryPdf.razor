@@ -1,0 +1,22 @@
+@page "/download-log-summary-pdf"
+@inject IDbConnection Db
+@inject IRazorPdfService PdfService
+@inject IJSRuntime JS
+
+<h3>📄 Download Weekly Log Summary PDF</h3>
+
+<button class="btn btn-primary" @onclick="DownloadPdf">Download PDF</button>
+
+@code {
+    private async Task DownloadPdf()
+    {
+        var model = (await Db.QueryAsync<LogSummaryExportDto>(
+            "sp_GetWeeklyLogSummary", commandType: CommandType.StoredProcedure)).AsList();
+
+        var pdfBytes = await PdfService.GenerateFromTemplateAsync("Reports/WeeklyLogReport", model);
+        var filename = $"weekly-log-summary-{DateTime.Now:yyyyMMdd}.pdf";
+
+        using var streamRef = new DotNetStreamReference(new MemoryStream(pdfBytes));
+        await JS.InvokeVoidAsync("downloadFileFromStream", filename, streamRef);
+    }
+}

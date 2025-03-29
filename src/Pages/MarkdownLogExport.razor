@@ -1,0 +1,19 @@
+@page "/export-markdown"
+@inject IMediator Mediator
+@inject IJSRuntime JS
+
+<h3>📄 Export Markdown Report</h3>
+
+<button class="btn btn-primary" @onclick="DownloadMarkdown">📥 Download Weekly Log Markdown</button>
+
+@code {
+    private async Task DownloadMarkdown()
+    {
+        var content = await Mediator.Send(new GenerateMarkdownReportQuery());
+        var bytes = Encoding.UTF8.GetBytes(content);
+        var filename = $"log-summary-{DateTime.Now:yyyyMMdd}.md";
+
+        using var streamRef = new DotNetStreamReference(new MemoryStream(bytes));
+        await JS.InvokeVoidAsync("downloadFileFromStream", filename, streamRef);
+    }
+}
